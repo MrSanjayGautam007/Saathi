@@ -12,8 +12,6 @@ import Header from '../Header';
 import api from '../../APIServices/api';
 import Feather from 'react-native-vector-icons/dist/Feather';
 import ImageCropPicker from 'react-native-image-crop-picker';
-import RNFS from 'react-native-fs';
-import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
 import { Button } from 'react-native-paper';
 
@@ -235,7 +233,7 @@ const UploadReport = () => {
             console.error("Error uploading report:", error); // Log error
             Alert.alert('Error', 'Something went wrong while uploading the report.'); // Error message
         } finally {
-            setLoading(false); // Hide loading state
+            setLoading(false); 
         }
     };
     const handleHPVReportSubmit = async () => {
