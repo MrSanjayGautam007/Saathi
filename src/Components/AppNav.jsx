@@ -1,7 +1,7 @@
 import { StatusBar, StyleSheet, Text, View, Image, Modal } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { NavigationContainer } from '@react-navigation/native'
+import { createStaticNavigation, NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Languages from './Languages'
 import LoginScreen from './LoginScreen'
@@ -38,34 +38,37 @@ import BlogsDetails from './HomePageScreens/BlogsDetails'
 import CoreProformaDetails from './UserDetailsComponents/CorePerformaDetails'
 import FemaleProformaDetails from './UserDetailsComponents/FemaleProformaDetails'
 import UpcommingReminders from './HomePageScreens/UpcommingReminders'
-
-const Stack = createNativeStackNavigator();
+import { createStackNavigator } from '@react-navigation/stack';
+// const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator()
 const Bottom = createBottomTabNavigator();
 
 const MyHome = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
-
     return (
         <Bottom.Navigator screenOptions={{
-            //   animation: 'shift',
+            animation: 'shift',
             headerShown: false,
             tabBarHideOnKeyboard: true,
             tabBarStyle: {
                 backgroundColor: "#E5E5FE",
-                // height: 60
+                // height: -60,
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                bottom: 0,
+                borderTopRightRadius: 25,
+                borderTopLeftRadius: 25,
             },
 
             tabBarActiveTintColor: "#512DA8",
             tabBarInactiveTintColor: "skyblue",
             // tabBarShowLabel: false, // Hides tab names
-            
-           
-
         }}
         >
             <Bottom.Screen name='Home' component={MyHomeStack}
                 options={{
-                    // title: 'Home',
+
 
                     tabBarIcon: ({ focused }) => (
                         <Image
@@ -80,21 +83,21 @@ const MyHome = () => {
                         />
 
                     ),
-                    tabBarLabel: ({ focused }) => ( 
+                    tabBarLabel: ({ focused }) => (
                         <Text style={{
                             color: focused ? "#DC143C" : "#512DA8",
                             fontSize: 10,
                             fontWeight: "bold"
                         }}>Home</Text>
                     )
-                    
+
                 }}
 
 
             />
             <Bottom.Screen name='SBE' component={SBEStack}
                 options={{
-                  
+
                     // title: 'SBE',
                     tabBarIcon: ({ focused }) => (
 
@@ -110,7 +113,7 @@ const MyHome = () => {
                         />
 
                     ),
-                    tabBarLabel: ({ focused }) => ( 
+                    tabBarLabel: ({ focused }) => (
                         <Text style={{
                             color: focused ? "#DC143C" : "#512DA8",
                             fontSize: 10,
@@ -136,7 +139,7 @@ const MyHome = () => {
                         />
 
                     ),
-                    tabBarLabel: ({ focused }) => ( 
+                    tabBarLabel: ({ focused }) => (
                         <Text style={{
                             color: focused ? "#DC143C" : "#512DA8",
                             fontSize: 10,
@@ -162,7 +165,7 @@ const MyHome = () => {
                         />
 
                     ),
-                    tabBarLabel: ({ focused }) => ( 
+                    tabBarLabel: ({ focused }) => (
                         <Text style={{
                             color: focused ? "#DC143C" : "#512DA8",
                             fontSize: 10,
@@ -181,7 +184,8 @@ const SBEStack = () => {
     return (
         <Stack.Navigator screenOptions={{
             headerShown: false,
-            animation: 'fade_from_bottom',
+            animation: 'slide_from_right',
+            orientation: 'portrait'
         }}>
             <Stack.Screen name='SBE' component={SelfBreastExamination} />
             <Stack.Screen name='SBESubmit' component={SBESubmit} />
@@ -192,7 +196,8 @@ const MyMenuStack = () => {
     return (
         <Stack.Navigator screenOptions={{
             headerShown: false,
-             animation: 'fade_from_bottom',
+            animation: 'fade_from_right',
+            orientation: 'portrait'
         }}>
             <Stack.Screen name='Menu' component={Menu} />
             <Stack.Screen name='PrivacyPolicy' component={PrivacyPolicy} />
@@ -210,7 +215,8 @@ const MyHomeStack = () => {
     return (
         <Stack.Navigator screenOptions={{
             headerShown: false,
-            animation: 'fade_from_bottom',
+            animation: 'slide_from_right',
+            orientation: 'portrait'
         }}
         //  initialRouteName='UploadReport'
         >
@@ -234,7 +240,8 @@ const MyBlogsStack = () => {
     return (
         <Stack.Navigator screenOptions={{
             headerShown: false,
-            animation: 'fade_from_bottom',
+            animation: 'slide_from_right',
+            orientation: 'portrait'
         }}>
             <Stack.Screen name='Blogs' component={Blogs} />
             <Stack.Screen name='BlogsDetails' component={BlogsDetails} />
@@ -246,7 +253,8 @@ const MyUserDetailsStack = () => {
         <Stack.Navigator
             screenOptions={{
                 headerShown: false,
-                animation: 'fade_from_bottom',
+                animation: 'slide_from_right',
+                orientation: 'portrait'
             }}
         >
             <Stack.Screen name='UserDetails' component={UserDetails} />
@@ -264,16 +272,17 @@ const AppNav = () => {
         <NavigationContainer>
             <Stack.Navigator screenOptions={{
                 headerShown: false,
-                animation: 'fade_from_bottom',
+                animation: 'slide_from_right',
+                orientation: 'portrait'
             }}
             // initialRouteName='Login'
             // initialRouteName={initialScreen}
             >
                 <Stack.Screen name='SplashScreen' component={SplashScreen}
-                options={{
-                    animation :'default'
-                }}
-                
+                    options={{
+                        animation: 'default'
+                    }}
+
                 />
                 <Stack.Screen name='Language' component={Languages} />
                 <Stack.Screen name='Login' component={LoginScreen} />

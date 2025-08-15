@@ -8,6 +8,8 @@ import 'react-native-reanimated';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import messaging from '@react-native-firebase/messaging';
 import { listenForForegroundNotifications, requestNotificationPermission } from './src/Firebase_Notifications/NotificationService'
+import ScreenWrapper from './src/Components/ScreenWrapper'
+
 
 // 🆕 Modular imports
 // import { getApp } from '@react-native-firebase/app';
@@ -23,9 +25,12 @@ const App = () => {
   }, []);
   return (
     <SafeAreaProvider>
+      <ScreenWrapper>
       <LanguageProvider>
         <AppNav />
+
       </LanguageProvider>
+      </ScreenWrapper>
     </SafeAreaProvider>
   )
 }

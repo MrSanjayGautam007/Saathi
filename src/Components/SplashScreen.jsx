@@ -20,7 +20,7 @@ const SplashScreen = () => {
 
             if (!language) {
                 timer = setTimeout(() => {
-                    navigation.replace("Language"); // 🌐 First time
+                    navigation.replace("Language"); //  First time
                 }, 1500);
 
             } else if (user) {
@@ -28,7 +28,7 @@ const SplashScreen = () => {
                 timer = setTimeout(() => {
                     navigation.replace("MyHome"); //  Logged in
                 }, 1500);
-                // navigation.replace("MyHome"); //  Logged in
+                
             } else {
                 // User is not logged in but language is set
                 timer = setTimeout(() => {

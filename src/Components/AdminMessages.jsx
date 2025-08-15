@@ -248,6 +248,7 @@ const styles = StyleSheet.create({
     // new styles
     list: {
         padding: 16,
+        paddingBottom:50
     },
     messageContainer: {
         backgroundColor: '#adfcda',
@@ -281,7 +282,7 @@ const styles = StyleSheet.create({
     dateText: {
         fontSize: 12,
         color: '#888',
-        marginTop: 6,
+        // marginTop: 6,
         textAlign: 'right',
     },
     emptyText: {

@@ -39,7 +39,7 @@ export const loginUser = async (po_id, password) => {
 // Fetch User Details
 export const getUserDetails = async () => {
     try {
-        const response = await api.get("/user-details"); // Token auto-added
+        const response = await api.get("/user-details"); 
         return response.data;
     } catch (error) {
         return null;

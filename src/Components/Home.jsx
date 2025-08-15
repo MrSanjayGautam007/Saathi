@@ -13,6 +13,10 @@ import api from '../APIServices/api';
 import Spinner from 'react-native-spinkit';
 import NetworkStatusToast from './HomePageScreens/NetworkStatusToast';
 import { Button } from 'react-native-paper';
+import { Skeleton } from '@rneui/themed';
+import LinearGradient from 'react-native-linear-gradient'
+import HomeScreenSkeleton from './SkelatonLoader/HomeScreenSkeleton';
+
 const Home = () => {
     const { width, height } = useWindowDimensions();
     const navigation = useNavigation();
@@ -123,15 +127,33 @@ const Home = () => {
             StatusBar.setBarStyle('light-content');
         }, [])
     );
+    const BlogLoader = () => {
+        return (
+            <View style={[styles.blogListView, { flexDirection: 'row', height: 'auto', width: '90%' }]}>
+                {[1, 2, 3].map((_, index) => (
+                    <View key={index} style={[styles.blogImageView,]}>
+                        <Skeleton
+                            width={'100%'}
+                            height={'100%'}
+                            animation='wave'
+
+                            LinearGradientComponent={LinearGradient}
+                        />
+
+                    </View>
+                ))}
+            </View>
+        )
+    }
     return (
         <SafeAreaView style={[styles.mainView, { width, height }]}>
             <StatusBar barStyle={'light-content'} backgroundColor={'#6A6BBF'} />
             {
                 loadingUser ? (
-                    <ActivityIndicator size={50} color="#Fff" style={styles.center} />
-                    // <Spinner type='Circle' size={40} color="#Fff" style={styles.center} />
+                    // <ActivityIndicator size={50} color="#Fff" style={styles.center} />
+                
+                    <HomeScreenSkeleton />
                 ) : (
-
 
                     <View>
                         <View style={styles.helloUserView}>
@@ -163,7 +185,7 @@ const Home = () => {
 
                         <ScrollView contentContainerStyle={{
                             alignItems: "center", flexGrow: 1
-                            , justifyContent: "center", paddingBottom: 20,
+                            , justifyContent: "center", paddingBottom: 100,
                         }}
                             showsVerticalScrollIndicator={false}
                             refreshControl={
@@ -176,13 +198,20 @@ const Home = () => {
 
                             <TouchableOpacity
                                 activeOpacity={0.8}
+                                disabled={loading}
                                 style={styles.reminderView}
                                 onPress={() => navigation.navigate('UpcommingReminders')}
                             >
 
                                 {
                                     loading ? (
-                                        <Spinner type='Wave' size={35} color="#512DA8" style={styles.center} />
+                                        // <Spinner type='Wave' size={35} color="#512DA8" style={styles.center} />
+                                        <Skeleton
+                                            width={'100%'}
+                                            height={'100%'}
+                                            animation='wave'
+                                            LinearGradientComponent={LinearGradient}
+                                        />
 
 
                                     ) : (
@@ -300,8 +329,9 @@ const Home = () => {
                             </View>
                             {
                                 loadingBlogs ? (
-                                    <ActivityIndicator size="large" color="#Fff" style={styles.center} />
-                                    // <Spinner type='Circle' size={40} color="#Fff" style={styles.center} />
+                                    // <ActivityIndicator size="large" color="#Fff" style={styles.center} />
+                                    // // <Spinner type='Circle' size={40} color="#Fff" style={styles.center} />
+                                    <BlogLoader />
 
                                 ) : (
                                     <View style={{
@@ -346,11 +376,11 @@ const Home = () => {
                             <NetworkStatusToast />
                         </ScrollView>
 
-                    </View>
+                    </View >
                 )
             }
 
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }
 
@@ -360,7 +390,6 @@ const styles = StyleSheet.create({
     mainView: {
         flex: 1,
         // justifyContent:'center',
-
         backgroundColor: '#6A6BBF',
     },
     helloUserView: {
@@ -417,6 +446,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         elevation: 15,
+        overflow: 'hidden'
     },
     upcomingText: {
         width: 180,
@@ -446,7 +476,7 @@ const styles = StyleSheet.create({
         gap: 10,
         padding: 10,
         alignSelf: 'flex-start',
-        marginVertical: 20,
+        marginVertical: 5,
     },
     whatWouldViewText: {
         fontWeight: '500',
@@ -461,12 +491,12 @@ const styles = StyleSheet.create({
         width: '95%',
         // height: 175,
         flexDirection: "row",
-        flexWrap: "wrap", // Allows wrapping to next row
-        justifyContent: "space-between", // Spaces items evenly
-        alignContent: "space-between", // ✅ Ensures wrapping works properly
+        flexWrap: "wrap", 
+        justifyContent: "space-between", 
+        alignContent: "space-between", //  Ensures wrapping works properly
         gap: 10, // Adds spacing between cards
         padding: 5, // Padding inside the container
-        // borderWidth: 1,
+      
 
     },
     cardView: {
@@ -499,8 +529,6 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         flexDirection: "row",
 
-
-
     },
     imageEllipseView: {
         width: 60, // Reduce image size to fit inside
@@ -525,7 +553,7 @@ const styles = StyleSheet.create({
         // width: 335,
         height: 52,
         paddingVertical: 30,
-        marginVertical: 20,
+        marginVertical: 5,
     },
     blogText: {
         width: 153,
@@ -551,10 +579,9 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     btnText: {
-        // fontFamily: 'Roboto',
+       
         fontWeight: '500',
         fontSize: 12,
-        // lineHeight: 16,
         textAlign: 'center',
         color: 'black',
 
@@ -569,7 +596,7 @@ const styles = StyleSheet.create({
     },
     blogImageView: {
         width: 130,
-        height: 180,
+        height: 160,
         gap: 5,
         // padding: 10,
         backgroundColor: '#fff',
@@ -578,6 +605,7 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: '#EDE7F6',
         elevation: 5,
+        overflow: 'hidden'
     },
     images: {
         width: '100%',
@@ -586,12 +614,12 @@ const styles = StyleSheet.create({
         // paddingTop: 10,
     },
     blogImageText: {
-        // fontFamily: 'Roboto',
         fontWeight: '600',
         fontSize: 14,
         lineHeight: 20,
-        textAlign: 'center',
+        // textAlign: 'center',
         color: '#000',
+        paddingHorizontal:10,
     },
     center: {
         flex: 1,

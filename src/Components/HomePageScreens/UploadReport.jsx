@@ -14,7 +14,7 @@ import Feather from 'react-native-vector-icons/dist/Feather';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import { useFocusEffect } from '@react-navigation/native';
 import { Button } from 'react-native-paper';
-
+import { Dropdown } from 'react-native-element-dropdown';
 
 const UploadReport = () => {
     // const [selectedImages, setSelectedImages] = useState([]);
@@ -31,7 +31,11 @@ const UploadReport = () => {
     const [loading, setLoading] = useState(false);
     const [otherDetails, setOtherDetails] = useState('');
     const [titer, setTiter] = useState('');
+    const reportTypesData = [
+        { label: 'Test Report', value: 'Test Report' },
+        { label: 'HPV Report', value: 'HPV Report' },
 
+    ]
     useEffect(() => {
 
         const getUser = async () => {
@@ -104,15 +108,15 @@ const UploadReport = () => {
         });
     }
     const selectMultipleImage = () => {
-    
+
 
         launchImageLibrary({ mediaType: 'photo', selectionLimit: 0 }, async (response) => {
             if (response.didCancel) {
-                
+
                 console.log('User cancelled image picker');
             } else if (response.errorCode) {
                 Alert.alert('Error', response.errorMessage || 'Image selection failed.');
-                
+
             } else if (response.assets && response.assets.length > 0) {
                 const croppedImages = [];
 
@@ -137,7 +141,7 @@ const UploadReport = () => {
                             uri: croppedImage.path,
                             type: croppedImage.mime,
                             name: `report_image_${Date.now()}.jpg`,
-                            id:  Date.now(),
+                            id: Date.now(),
                         });
                     } catch (error) {
                         console.log('Crop cancelled or failed:', error);
@@ -148,9 +152,9 @@ const UploadReport = () => {
                     setImageList(croppedImages); // use setImageList if managing multiple images
                 }
 
-                
+
             } else {
-                
+
                 console.log('No image selected');
             }
         });
@@ -175,7 +179,7 @@ const UploadReport = () => {
             }
         }
 
-      
+
         const formData = new FormData();
         formData.append('po_id', poid); // Append POID
         formData.append('report_type', reportType); // Append reportType
@@ -233,7 +237,7 @@ const UploadReport = () => {
             console.error("Error uploading report:", error); // Log error
             Alert.alert('Error', 'Something went wrong while uploading the report.'); // Error message
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
     const handleHPVReportSubmit = async () => {
@@ -336,10 +340,10 @@ const UploadReport = () => {
     };
     useFocusEffect(
         React.useCallback(() => {
-          StatusBar.setBackgroundColor('#6A6BBF'); 
-          StatusBar.setBarStyle('light-content');
+            StatusBar.setBackgroundColor('#6A6BBF');
+            StatusBar.setBarStyle('light-content');
         }, [])
-      );
+    );
     return (
         <SafeAreaView style={[styles.mainView, { height: height, width: width }]} >
             <StatusBar barStyle="light-content" backgroundColor="#6A6BBF" />
@@ -372,7 +376,6 @@ const UploadReport = () => {
                         />
                     </View>
 
-
                     <Text style={styles.label}>{t('Select Report Type')}</Text>
                     <View style={styles.pickerContainer}>
                         <Picker
@@ -388,6 +391,18 @@ const UploadReport = () => {
                             <Picker.Item label={t("Test Report")} value="Test" />
                             <Picker.Item label={t("HPV Report")} value="HPV" />
                         </Picker>
+                        {/* <Dropdown
+                            data={reportTypesData}
+                            labelField="label"
+                            valueField="value"
+                            placeholder="Select Education Level"
+                            value={reportType}
+                            onChange={item => setReportType(item.value)}
+                        style={styles.dropdown}
+                        search
+                        maxHeight={300}
+                        searchPlaceholder="Search..."
+                        /> */}
                     </View>
 
                     {reportType === 'Test' && (
@@ -546,11 +561,11 @@ const UploadReport = () => {
                         </TouchableOpacity>
                         <TouchableOpacity
                             activeOpacity={0.9}
-                     
+
                             onPress={handleReset}
                             style={styles.cancelBtn}
 
-                            >
+                        >
                             <Text style={[styles.btnText,]}>{t("Reset")}</Text>
                         </TouchableOpacity>
                     </View>
@@ -594,6 +609,13 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginBottom: 15,
         overflow: 'hidden',
+    },
+    dropdown: {
+        marginBottom: 15,
+        borderWidth: 1,
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        height: 48,
     },
     uploadBtn: {
         backgroundColor: '#fff',
@@ -660,7 +682,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
     },
-   
+
     uploadBtnView: {
         // backgroundColor: '#fff',
         padding: 12,

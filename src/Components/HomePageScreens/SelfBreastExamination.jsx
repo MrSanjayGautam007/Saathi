@@ -54,7 +54,7 @@ const SelfBreastExamination = () => {
     );
     const handleSubmit = async () => {
         const formattedDate = date.toISOString().split('T')[0]; // Format date to YYYY-MM-DD
-        console.log("Formatted Date:", formattedDate);
+        // console.log("Formatted Date:", formattedDate);
         setLoading(true);
         try {
             const response = await api.post('/save-upcoming-self-breast-examination', {
@@ -64,14 +64,14 @@ const SelfBreastExamination = () => {
             console.log("Response:", response.data);
             const result = response.data;
             if (result.success) {
-                console.log("Self Breast Examination Reminder set successfully");
+                // console.log("Self Breast Examination Reminder set successfully");
                 Alert.alert('Success', 'Self Breast Examination Reminder set successfully');
             } else {
-                console.log("Failed to set reminder");
+                // console.log("Failed to set reminder");
                 Alert.alert('Failed', 'Failed to set reminder');
             }
         } catch (error) {
-            console.error("Something went wrong Please Check Your internet connection:", error);
+            // console.error("Something went wrong Please Check Your internet connection:", error);
             Alert.alert('Error', 'Something went wrong Please Check Your internet connection');
         } finally {
             setLoading(false);
@@ -87,7 +87,7 @@ const SelfBreastExamination = () => {
                 <ScrollView
                     contentContainerStyle={{
                         alignItems: 'center',
-                        paddingBottom: 20,
+                        paddingBottom: 40,
                     }}
                     showsVerticalScrollIndicator={false}
                     style={styles.containerView}

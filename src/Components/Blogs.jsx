@@ -111,7 +111,7 @@ const Blogs = () => {
 
               contentContainerStyle={{
                 padding: 10,
-                paddingBottom: 20,
+                paddingBottom: 100,
               }}
 
             />

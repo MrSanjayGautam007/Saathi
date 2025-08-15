@@ -122,7 +122,9 @@ const SBESubmit = () => {
             <Header title={t('SBE Submit')}  textColor={'#fff'} iconColor={'#fff'} />
             <ScrollView style={styles.container}
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ padding: 10,}}
+                contentContainerStyle={{ padding: 10,
+                    paddingBottom:100
+                }}
             >
                 {/* Breast Type */}
                 <Text style={styles.label}>{t('Breast Type')} *</Text>
